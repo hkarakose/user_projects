@@ -1,0 +1,22 @@
+{
+    "istanbulhipsterApp": {
+        "employer" : {
+            "home": {
+                "title": "Employers",
+                "createLabel": "Create a new Employer",
+                "createOrEditLabel": "Create or edit a Employer"
+            },
+            "created": "A new Employer is created with identifier {{ param }}",
+            "updated": "A Employer is updated with identifier {{ param }}",
+            "deleted": "A Employer is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Employer {{ id }}?"
+            },
+            "detail": {
+                "title": "Employer"
+            },
+            "title": "Title",
+            "establishDate": "EstablishDate"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<html>
+<head>
+<script type="text/javascript">
+
+  var views = chrome.self.getViews();
+  
+  for(i in views) {
+    if(views[i].deleteToken) {
+      views[i].deleteToken();
+	  history.back(-1);
+      break;
+    }
+  }
+</script>
+</head>
+<body>
+Deleting access token for Chritter...
+</body>
+</html>

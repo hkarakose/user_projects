@@ -1,0 +1,41 @@
+<html>
+<head>
+<script type="text/javascript">
+  var button;
+  var bg;
+  
+  function update() {
+    if(!button) {
+      button = document.getElementById("button");
+	}
+	// it's messy to have to do this each time
+	if(!bg) {
+      var views = chrome.self.getViews();
+	  for(i in views) {
+        if(views[i].updateAll) {
+	      bg = views[i];
+		  break;
+	    }
+	  }
+	}
+	if (bg)
+	{
+	  button.style.opacity = 0;
+	  setTimeout(finishUpdate, 1000);
+	}
+  }
+
+  function finishUpdate() {
+	button.onclick = bg.action;
+    button.innerHTML = bg.text;
+    button.style.opacity = 1;
+  }
+</script>
+
+</head>
+<body onload="update();">
+  <div id="button" style="-webkit-transition: all 1s linear;">
+	Checking credentials...
+  </div>
+</body>
+</html>

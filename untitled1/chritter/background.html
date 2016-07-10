@@ -1,0 +1,208 @@
+<html>
+<head>
+<script type="text/javascript" src="OAuthSimple.js"></script>
+<script type="text/javascript">
+
+  var req;
+  var token; // request token
+  var deleteTab; // id of the tab used for autorization
+
+  var tweets = []; // all currently fetched tweets
+  var current; // index of currently fetched tweet
+
+  var text; // displayed text
+  var action; // function evaluated when clicking
+
+  var fetchFreq = 300000; // how often we fetch new tweets (5mn)
+  var rotateFreq = 10000; // how often we rotate tweets (10s)
+
+  // for now we store settings in a bookmark
+  var bookmarkId;
+  var bookmarkName = "ChritterToken (click to sign out)";
+  var bookmarkUrl = "chrome-extension://" + location.hostname + "/signout.html?"
+
+  // look for token in bookmarks
+  chrome.bookmarks.getTree( function(tree) {
+    findToken(tree);
+	if(token) {
+	  // if found fetch tweets
+	  getTweets();
+	} else {
+	  // else ask the user to authorize
+	  getRequestToken();
+	}
+  });
+
+  // recursively find a bookmark corresponding to the token
+  function findToken(tree) {
+    //TODO: handle multiple bookmarks with this name
+	for(i in tree) {
+	  if(tree[i].title == bookmarkName) {
+        token = JSON.parse(decodeURI(tree[i].url.split("?")[1]));
+		bookmarkId = tree[i].id;
+	  } else if (tree[i].childrenIds) {
+	    findToken(tree[i].childrenIds);
+      }
+	} 
+  }
+
+  // get a request token that can be used to authorize the app
+  function getRequestToken() {
+    token = {};
+    oauthRequest("http://twitter.com/oauth/request_token", {}, gotRequestToken);
+  }
+
+  // set up button to call authorize method
+  function gotRequestToken() {
+    parseToken(req.responseText);
+	text = "<img src='signin.png'/>";
+	action = authorize;
+	updateAll();
+  }
+
+  // open up authorization page
+  function authorize() {
+    deleteTab = false;
+	chrome.tabs.create({
+	    "url":"http://twitter.com/oauth/authorize?oauth_token=" + token.oauth_token,
+	    "selected":true
+    }, function(theTab) {
+	  if(deleteTab){
+		chrome.tabs.remove(theTab.id);
+	  } else {
+    	deleteTab = theTab;
+	  }
+	});
+  }
+
+  // we have a content script that detects a successful authorization
+  chrome.self.onConnect.addListener(function(port) {
+    port.onMessage.addListener(function(data) {
+	  if (data.success) {
+	    // if succesful, use pin to get access token
+        oauthRequest("http://twitter.com/oauth/access_token", {"oauth_verifier": data.pin}, gotAccessToken);
+		if (deleteTab){
+		  chrome.tabs.remove(deleteTab.id);
+		} else  {
+          deleteTab == true;
+		}
+	  } else {
+	    // otherwise get a new request token
+	    token = {};
+		getRequestToken();
+	  }
+    });
+  });
+  
+  // once we have an access token, save it and start fetching tweets
+  function gotAccessToken() {
+    text = "Fetching tweets...";
+	action = null;
+	updateAll();
+    parseToken(req.responseText);
+	storeToken();
+	getTweets();
+	setInterval(getTweets, fetchFreq);
+  }
+
+  // fetch users' timeline from the server
+  function getTweets() {
+    var params= {};
+	if (tweets.length > 0) {
+	  params.since_id = tweets[0].id
+	}
+	oauthRequest("http://twitter.com/statuses/friends_timeline.json", params, gotTweets);
+  }
+
+  // process new batch of tweets
+  function gotTweets() {
+    tweets = JSON.parse(req.responseText).concat(tweets);
+	current = 0;
+	action = null;
+    rotateTweet();
+	setInterval(rotateTweet, rotateFreq);
+  }
+
+  // change the currently displayed tweet
+  function rotateTweet() {
+	text = tweets[current].user.name + ": " + linkify(tweets[current].text);
+	updateAll();
+    current = (current + 1) % tweets.length;
+  }
+
+  // add links to tweets
+  function linkify(text) {
+    // links
+    text = text.replace(/[a-z]+:\/\/[a-z0-9-_]+\.[a-z0-9-_:% \?\/.=]+/ig, function(m) {
+      return '<a href="javascript:chrome.tabs.create({url:\'' + m + '\'});">' + m + '</a>';
+    });
+	// twitter ids
+	text = text.replace(/\@[a-z0-9-_]+/ig, function(m) {
+      return '<a href="javascript:chrome.tabs.create({url:\'http://twitter.com/' + m.substring(1) + '\'});">' + m + '</a>';
+    });
+	// twitter hashes
+	text = text.replace(/\#[a-z0-9-_]+/ig, function(m) {
+      return '<a href="javascript:chrome.tabs.create({url:\'http://twitter.com/#search?q=' + m + '\'});">' + m + '</a>';
+    });
+	return text;
+  }
+
+  // parse tokens returned by xhr
+  function parseToken(source) {
+    var args = source.split("&");
+	for(i in args) {
+      args[i] = args[i].split("=");
+      token[args[i][0]] = args[i][1];
+	}
+  }
+
+  // send an oauth request to twitter
+  // TODO: handle XHR errors and rate limits
+  function oauthRequest(url, parameters, callback) {
+      signatures = {
+	    consumer_key:'yfQjtSG9oE3vizQKR1F0w',
+		shared_secret:'UB34J2S79XdO6SGVxXEyakAL3NfJBpjgi8OalZnxU'
+	  };
+	  if(token.oauth_token) {
+        signatures.oauth_token = token.oauth_token;
+		signatures.oauth_secret = token.oauth_token_secret;
+	  }
+      var authLink = OAuthSimple().sign(
+                           {
+						     path:url,
+                             parameters: parameters,
+                             signatures: signatures
+                           }
+                       ); 
+      req = new XMLHttpRequest();
+      req.onload = callback;
+      req.open("GET", authLink.signed_url, false);
+      req.send(null);
+  }
+
+  // update the display of all toolstrips
+  function updateAll() {
+    var views = chrome.self.getViews();
+    for(i in views) {
+      if (views[i].update){
+	    views[i].update();
+	  }
+    }
+  }
+
+  // save a token as a bookmark
+  function storeToken() {
+    chrome.bookmarks.create({title:bookmarkName, url:bookmarkUrl+encodeURI(JSON.stringify(token))},
+	   function(bookmark) {bookmarkId = bookmark.id;});
+  }
+
+  // delete token
+  function deleteToken() {
+    chrome.bookmarks.remove(bookmarkId);
+	tweets = [];
+	getRequestToken();
+  }
+
+</script>
+</head>
+</html>
