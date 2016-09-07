@@ -22,9 +22,9 @@
         <loadData tableName="city"      file="config/liquibase/ticketing_city.csv"      encoding="UTF-8" separator=";" />
         <loadData tableName="airport"   file="config/liquibase/ticketing_airport.csv"   encoding="UTF-8" separator=";" />
         <loadData tableName="airlines"  file="config/liquibase/ticketing_airlines.csv"  encoding="UTF-8" separator=";" />
-        <loadData tableName="airplane"  file="config/liquibase/ticketing_airlines.csv"  encoding="UTF-8" separator=";" />
-        <loadData tableName="airplane_model"      file="config/liquibase/ticketing_airlines_model.csv" encoding="UTF-8" separator=";" />
-        <loadData tableName="airplane_model_seat" file="config/liquibase/ticketing_airlines_model.csv" encoding="UTF-8" separator=";" />
+        <loadData tableName="airplane"  file="config/liquibase/ticketing_airplane.csv"  encoding="UTF-8" separator=";" />
+        <loadData tableName="airplane_model"      file="config/liquibase/ticketing_airplane_model.csv" encoding="UTF-8" separator=";" />
+        <loadData tableName="airplane_model_seat" file="config/liquibase/ticketing_airplane_model_seat.csv" encoding="UTF-8" separator=";" />
 
     </changeSet>
 </databaseChangeLog>
