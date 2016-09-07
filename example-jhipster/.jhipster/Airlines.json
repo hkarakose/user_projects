@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "airplane",
+            "otherEntityName": "airplane",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "abbreviation",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160907125334",
+    "entityTableName": "airlines",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no"
+}

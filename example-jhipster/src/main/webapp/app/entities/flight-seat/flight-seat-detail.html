@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Flight Seat</span> {{vm.flightSeat.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Seat No</span></dt>
+        <dd>
+            <span>{{vm.flightSeat.seatNo}}</span>
+        </dd>
+        <dt><span>Availability</span></dt>
+        <dd>
+            <span>{{vm.flightSeat.availability}}</span>
+        </dd>
+        <dt><span>Flight</span></dt>
+        <dd>
+            <a ui-sref="flight-detail({id:vm.flightSeat.flight.id})">{{vm.flightSeat.flight.id}}</a>
+        </dd>
+        <dt><span>Owner</span></dt>
+        <dd>
+            {{vm.flightSeat.owner.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="flight-seat-detail.edit({id:vm.flightSeat.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "airplane",
+            "otherEntityName": "airplane",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "airplaneModelSeat",
+            "otherEntityName": "airplaneModelSeat",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "model",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160907125332",
+    "entityTableName": "airplane_model",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no"
+}

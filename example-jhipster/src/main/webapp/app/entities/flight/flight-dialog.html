@@ -1,0 +1,85 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myFlightLabel">Create or edit a Flight</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.flight.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.flight.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_flightCode">Flight Code</label>
+            <input type="text" class="form-control" name="flightCode" id="field_flightCode"
+                    ng-model="vm.flight.flightCode"
+                    required />
+            <div ng-show="editForm.flightCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.flightCode.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date" datetime-picker="{{dateformat}}" ng-model="vm.flight.date" is-open="vm.datePickerOpenStatus.date"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.date.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.date.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.date.$error.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.flight.status" id="field_status">
+                <option value="NEW">NEW</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="SUSPENDED">SUSPENDED</option>
+                <option value="TERMINATED">TERMINATED</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="field_departure">Departure</label>
+            <select class="form-control" id="field_departure" name="departure" ng-model="vm.flight.departure" ng-options="airport as airport.id for airport in vm.airports track by airport.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_arrival">Arrival</label>
+            <select class="form-control" id="field_arrival" name="arrival" ng-model="vm.flight.arrival" ng-options="airport as airport.id for airport in vm.airports track by airport.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_airplane">Airplane</label>
+            <select class="form-control" id="field_airplane" name="airplane" ng-model="vm.flight.airplane" ng-options="airplane as airplane.id for airplane in vm.airplanes track by airplane.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
