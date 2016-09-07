@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+<head>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-controller="StoreController as store">
+<header>
+    <h1 class="text-center">Flatlander Crafted Gems</h1>
+    <h2 class="text-center">- an Angular store -</h2>
+</header>
+<div class="list-group">
+    <div class="list-group-item" ng-repeat="product in store.products">
+        <product-title></product-title>
+
+        <div ng-controller="GalleryController as gallery"  ng-show="product.images.length">
+            <div class="img-wrap">
+                <img ng-src="{{product.images[gallery.current]}}" />
+            </div>
+            <ul class="img-thumbnails clearfix">
+                <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
+                    <img ng-src="{{image}}" />
+                </li>
+            </ul>
+        </div>
+
+        <product-panels>
+
+        </product-panels>
+
+    </div>
+</div>
+</body>
+</html>
