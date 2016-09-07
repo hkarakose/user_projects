@@ -22,4 +22,7 @@
     <include file="classpath:config/liquibase/changelog/20160907125336_added_entity_constraints_FlightSeat.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160907125337_added_entity_constraints_City.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+
+    <include file="classpath:config/liquibase/changelog/20160907130000_added_data.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
