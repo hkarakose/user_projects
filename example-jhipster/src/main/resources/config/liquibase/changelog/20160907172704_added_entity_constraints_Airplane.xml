@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Airplane.
+    -->
+    <changeSet id="20160907172704-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="airplane_model_id"
+                                 baseTableName="airplane"
+                                 constraintName="fk_airplane_airplane_model_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="airplane_model"/>
+
+        <addForeignKeyConstraint baseColumnNames="airlines_id"
+                                 baseTableName="airplane"
+                                 constraintName="fk_airplane_airlines_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="airlines"/>
+
+    </changeSet>
+</databaseChangeLog>

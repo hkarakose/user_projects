@@ -38,7 +38,6 @@
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="abbreviation"><span>Abbreviation</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="airplane.id"><span>Airplane</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -47,9 +46,6 @@
                     <td><a ui-sref="airlines-detail({id:airlines.id})">{{airlines.id}}</a></td>
                     <td>{{airlines.name}}</td>
                     <td>{{airlines.abbreviation}}</td>
-                    <td>
-                        <a ui-sref="airplane-detail({id:airlines.airplane.id})">{{airlines.airplane.id}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

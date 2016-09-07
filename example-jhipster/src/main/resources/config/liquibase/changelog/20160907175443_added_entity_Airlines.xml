@@ -14,40 +14,23 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Flight.
+        Added the entity Airlines.
     -->
-    <changeSet id="20160907125335-1" author="jhipster">
-        <createTable tableName="flight">
+    <changeSet id="20160907175443-1" author="jhipster">
+        <createTable tableName="airlines">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="flight_code" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             
-            <column name="date" type="timestamp">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="status" type="varchar(255)">
+            <column name="abbreviation" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             
-            <column name="departure_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="arrival_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="airplane_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="flight" columnName="date" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

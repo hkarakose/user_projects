@@ -5,16 +5,14 @@
         .module('ticketingApp')
         .controller('AirplaneModelDialogController', AirplaneModelDialogController);
 
-    AirplaneModelDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AirplaneModel', 'Airplane', 'AirplaneModelSeat'];
+    AirplaneModelDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AirplaneModel'];
 
-    function AirplaneModelDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AirplaneModel, Airplane, AirplaneModelSeat) {
+    function AirplaneModelDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AirplaneModel) {
         var vm = this;
 
         vm.airplaneModel = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.airplanes = Airplane.query();
-        vm.airplanemodelseats = AirplaneModelSeat.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

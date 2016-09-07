@@ -1,6 +1,5 @@
 package com.ticketing.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -31,22 +28,11 @@ public class Airplane implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "airplane_model_id")
-    private Long airplaneModelId;
+    @ManyToOne
+    private AirplaneModel airplaneModel;
 
-    @NotNull
-    @Column(name = "airlines_id", nullable = false)
-    private Long airlinesId;
-
-    @OneToMany(mappedBy = "airplane")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Airlines> airlinesIds = new HashSet<>();
-
-    @OneToMany(mappedBy = "airplane")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AirplaneModel> airplaneModelIds = new HashSet<>();
+    @ManyToOne
+    private Airlines airlines;
 
     public Long getId() {
         return id;
@@ -69,80 +55,30 @@ public class Airplane implements Serializable {
         this.name = name;
     }
 
-    public Long getAirplaneModelId() {
-        return airplaneModelId;
+    public AirplaneModel getAirplaneModel() {
+        return airplaneModel;
     }
 
-    public Airplane airplaneModelId(Long airplaneModelId) {
-        this.airplaneModelId = airplaneModelId;
+    public Airplane airplaneModel(AirplaneModel airplaneModel) {
+        this.airplaneModel = airplaneModel;
         return this;
     }
 
-    public void setAirplaneModelId(Long airplaneModelId) {
-        this.airplaneModelId = airplaneModelId;
+    public void setAirplaneModel(AirplaneModel airplaneModel) {
+        this.airplaneModel = airplaneModel;
     }
 
-    public Long getAirlinesId() {
-        return airlinesId;
+    public Airlines getAirlines() {
+        return airlines;
     }
 
-    public Airplane airlinesId(Long airlinesId) {
-        this.airlinesId = airlinesId;
+    public Airplane airlines(Airlines airlines) {
+        this.airlines = airlines;
         return this;
     }
 
-    public void setAirlinesId(Long airlinesId) {
-        this.airlinesId = airlinesId;
-    }
-
-    public Set<Airlines> getAirlinesIds() {
-        return airlinesIds;
-    }
-
-    public Airplane airlinesIds(Set<Airlines> airlines) {
-        this.airlinesIds = airlines;
-        return this;
-    }
-
-    public Airplane addAirlines(Airlines airlines) {
-        airlinesIds.add(airlines);
-        airlines.setAirplane(this);
-        return this;
-    }
-
-    public Airplane removeAirlines(Airlines airlines) {
-        airlinesIds.remove(airlines);
-        airlines.setAirplane(null);
-        return this;
-    }
-
-    public void setAirlinesIds(Set<Airlines> airlines) {
-        this.airlinesIds = airlines;
-    }
-
-    public Set<AirplaneModel> getAirplaneModelIds() {
-        return airplaneModelIds;
-    }
-
-    public Airplane airplaneModelIds(Set<AirplaneModel> airplaneModels) {
-        this.airplaneModelIds = airplaneModels;
-        return this;
-    }
-
-    public Airplane addAirplaneModel(AirplaneModel airplaneModel) {
-        airplaneModelIds.add(airplaneModel);
-        airplaneModel.setAirplane(this);
-        return this;
-    }
-
-    public Airplane removeAirplaneModel(AirplaneModel airplaneModel) {
-        airplaneModelIds.remove(airplaneModel);
-        airplaneModel.setAirplane(null);
-        return this;
-    }
-
-    public void setAirplaneModelIds(Set<AirplaneModel> airplaneModels) {
-        this.airplaneModelIds = airplaneModels;
+    public void setAirlines(Airlines airlines) {
+        this.airlines = airlines;
     }
 
     @Override
@@ -170,8 +106,6 @@ public class Airplane implements Serializable {
         return "Airplane{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", airplaneModelId='" + airplaneModelId + "'" +
-            ", airlinesId='" + airlinesId + "'" +
             '}';
     }
 }

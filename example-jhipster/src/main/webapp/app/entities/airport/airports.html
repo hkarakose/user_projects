@@ -38,7 +38,7 @@
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="iataCode"><span>Iata Code</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="city.id"><span>City</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="city.name"><span>City</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
                     <td>{{airport.name}}</td>
                     <td>{{airport.iataCode}}</td>
                     <td>
-                        <a ui-sref="city-detail({id:airport.city.id})">{{airport.city.id}}</a>
+                        <a ui-sref="city-detail({id:airport.city.id})">{{airport.city.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

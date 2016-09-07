@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label for="field_country">Country</label>
-            <select class="form-control" id="field_country" name="country" ng-model="vm.city.country" ng-options="country as country.id for country in vm.countries track by country.id">
+            <select class="form-control" id="field_country" name="country" ng-model="vm.city.country" ng-options="country as country.name for country in vm.countries track by country.id">
                 <option value=""></option>
             </select>
         </div>

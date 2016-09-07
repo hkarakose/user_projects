@@ -32,12 +32,6 @@
                      />
         </div>
 
-        <div class="form-group">
-            <label for="field_airplane">Airplane</label>
-            <select class="form-control" id="field_airplane" name="airplane" ng-model="vm.airlines.airplane" ng-options="airplane as airplane.id for airplane in vm.airplanes track by airplane.id">
-                <option value=""></option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

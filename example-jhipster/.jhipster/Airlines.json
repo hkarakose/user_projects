@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipName": "airplane",
-            "otherEntityName": "airplane",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "name",
@@ -21,7 +14,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907125334",
+    "changelogDate": "20160907175443",
     "entityTableName": "airlines",
     "dto": "no",
     "pagination": "pagination",

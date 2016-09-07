@@ -36,16 +36,18 @@
             <thead>
                 <tr>
                     <th><span>ID</span></th>
-                    <th><span>Model Id</span></th>
                     <th><span>Seat No</span></th>
+                    <th><span>Model</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="airplaneModelSeat in vm.airplaneModelSeats track by airplaneModelSeat.id">
                     <td><a ui-sref="airplane-model-seat-detail({id:airplaneModelSeat.id})">{{airplaneModelSeat.id}}</a></td>
-                    <td>{{airplaneModelSeat.modelId}}</td>
                     <td>{{airplaneModelSeat.seatNo}}</td>
+                    <td>
+                        <a ui-sref="airplane-model-detail({id:airplaneModelSeat.model.id})">{{airplaneModelSeat.model.model}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

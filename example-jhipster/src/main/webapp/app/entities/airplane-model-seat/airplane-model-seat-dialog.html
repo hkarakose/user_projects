@@ -14,12 +14,6 @@
                     ng-model="vm.airplaneModelSeat.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_modelId">Model Id</label>
-            <input type="number" class="form-control" name="modelId" id="field_modelId"
-                    ng-model="vm.airplaneModelSeat.modelId"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" for="field_seatNo">Seat No</label>
             <input type="text" class="form-control" name="seatNo" id="field_seatNo"
                     ng-model="vm.airplaneModelSeat.seatNo"
@@ -32,6 +26,12 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="field_model">Model</label>
+            <select class="form-control" id="field_model" name="model" ng-model="vm.airplaneModelSeat.model" ng-options="airplaneModel as airplaneModel.model for airplaneModel in vm.airplanemodels track by airplaneModel.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

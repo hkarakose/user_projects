@@ -95,7 +95,6 @@
                     resolve: {
                         entity: function () {
                             return {
-                                modelId: null,
                                 seatNo: null,
                                 id: null
                             };

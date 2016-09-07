@@ -28,12 +28,6 @@ public class AirplaneModel implements Serializable {
     @Column(name = "model", nullable = false)
     private String model;
 
-    @ManyToOne
-    private Airplane airplane;
-
-    @ManyToOne
-    private AirplaneModelSeat airplaneModelSeat;
-
     public Long getId() {
         return id;
     }
@@ -53,32 +47,6 @@ public class AirplaneModel implements Serializable {
 
     public void setModel(String model) {
         this.model = model;
-    }
-
-    public Airplane getAirplane() {
-        return airplane;
-    }
-
-    public AirplaneModel airplane(Airplane airplane) {
-        this.airplane = airplane;
-        return this;
-    }
-
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
-    }
-
-    public AirplaneModelSeat getAirplaneModelSeat() {
-        return airplaneModelSeat;
-    }
-
-    public AirplaneModel airplaneModelSeat(AirplaneModelSeat airplaneModelSeat) {
-        this.airplaneModelSeat = airplaneModelSeat;
-        return this;
-    }
-
-    public void setAirplaneModelSeat(AirplaneModelSeat airplaneModelSeat) {
-        this.airplaneModelSeat = airplaneModelSeat;
     }
 
     @Override

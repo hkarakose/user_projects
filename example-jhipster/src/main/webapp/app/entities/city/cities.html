@@ -37,7 +37,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="country.id"><span>Country</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="country.name"><span>Country</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                     <td><a ui-sref="city-detail({id:city.id})">{{city.id}}</a></td>
                     <td>{{city.name}}</td>
                     <td>
-                        <a ui-sref="country-detail({id:city.country.id})">{{city.country.id}}</a>
+                        <a ui-sref="country-detail({id:city.country.id})">{{city.country.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

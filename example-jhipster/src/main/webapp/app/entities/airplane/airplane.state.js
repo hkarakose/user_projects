@@ -116,8 +116,6 @@
                         entity: function () {
                             return {
                                 name: null,
-                                airplaneModelId: null,
-                                airlinesId: null,
                                 id: null
                             };
                         }

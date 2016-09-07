@@ -8,13 +8,13 @@
         <dd>
             <span>{{vm.airplane.name}}</span>
         </dd>
-        <dt><span>Airplane Model Id</span></dt>
+        <dt><span>Airplane Model</span></dt>
         <dd>
-            <span>{{vm.airplane.airplaneModelId}}</span>
+            <a ui-sref="airplane-model-detail({id:vm.airplane.airplaneModel.id})">{{vm.airplane.airplaneModel.model}}</a>
         </dd>
-        <dt><span>Airlines Id</span></dt>
+        <dt><span>Airlines</span></dt>
         <dd>
-            <span>{{vm.airplane.airlinesId}}</span>
+            <a ui-sref="airlines-detail({id:vm.airplane.airlines.id})">{{vm.airplane.airlines.name}}</a>
         </dd>
     </dl>
 

@@ -5,9 +5,9 @@
         .module('ticketingApp')
         .controller('AirplaneModelDetailController', AirplaneModelDetailController);
 
-    AirplaneModelDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'AirplaneModel', 'Airplane', 'AirplaneModelSeat'];
+    AirplaneModelDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'AirplaneModel'];
 
-    function AirplaneModelDetailController($scope, $rootScope, $stateParams, previousState, entity, AirplaneModel, Airplane, AirplaneModelSeat) {
+    function AirplaneModelDetailController($scope, $rootScope, $stateParams, previousState, entity, AirplaneModel) {
         var vm = this;
 
         vm.airplaneModel = entity;

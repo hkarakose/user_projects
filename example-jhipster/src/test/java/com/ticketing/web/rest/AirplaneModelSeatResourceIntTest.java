@@ -37,9 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TicketingApp.class)
 public class AirplaneModelSeatResourceIntTest {
-
-    private static final Long DEFAULT_MODEL_ID = 1L;
-    private static final Long UPDATED_MODEL_ID = 2L;
     private static final String DEFAULT_SEAT_NO = "AAAAA";
     private static final String UPDATED_SEAT_NO = "BBBBB";
 
@@ -82,7 +79,6 @@ public class AirplaneModelSeatResourceIntTest {
     public static AirplaneModelSeat createEntity(EntityManager em) {
         AirplaneModelSeat airplaneModelSeat = new AirplaneModelSeat();
         airplaneModelSeat = new AirplaneModelSeat()
-                .modelId(DEFAULT_MODEL_ID)
                 .seatNo(DEFAULT_SEAT_NO);
         return airplaneModelSeat;
     }
@@ -109,7 +105,6 @@ public class AirplaneModelSeatResourceIntTest {
         List<AirplaneModelSeat> airplaneModelSeats = airplaneModelSeatRepository.findAll();
         assertThat(airplaneModelSeats).hasSize(databaseSizeBeforeCreate + 1);
         AirplaneModelSeat testAirplaneModelSeat = airplaneModelSeats.get(airplaneModelSeats.size() - 1);
-        assertThat(testAirplaneModelSeat.getModelId()).isEqualTo(DEFAULT_MODEL_ID);
         assertThat(testAirplaneModelSeat.getSeatNo()).isEqualTo(DEFAULT_SEAT_NO);
 
         // Validate the AirplaneModelSeat in ElasticSearch
@@ -146,7 +141,6 @@ public class AirplaneModelSeatResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(airplaneModelSeat.getId().intValue())))
-                .andExpect(jsonPath("$.[*].modelId").value(hasItem(DEFAULT_MODEL_ID.intValue())))
                 .andExpect(jsonPath("$.[*].seatNo").value(hasItem(DEFAULT_SEAT_NO.toString())));
     }
 
@@ -161,7 +155,6 @@ public class AirplaneModelSeatResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(airplaneModelSeat.getId().intValue()))
-            .andExpect(jsonPath("$.modelId").value(DEFAULT_MODEL_ID.intValue()))
             .andExpect(jsonPath("$.seatNo").value(DEFAULT_SEAT_NO.toString()));
     }
 
@@ -184,7 +177,6 @@ public class AirplaneModelSeatResourceIntTest {
         // Update the airplaneModelSeat
         AirplaneModelSeat updatedAirplaneModelSeat = airplaneModelSeatRepository.findOne(airplaneModelSeat.getId());
         updatedAirplaneModelSeat
-                .modelId(UPDATED_MODEL_ID)
                 .seatNo(UPDATED_SEAT_NO);
 
         restAirplaneModelSeatMockMvc.perform(put("/api/airplane-model-seats")
@@ -196,7 +188,6 @@ public class AirplaneModelSeatResourceIntTest {
         List<AirplaneModelSeat> airplaneModelSeats = airplaneModelSeatRepository.findAll();
         assertThat(airplaneModelSeats).hasSize(databaseSizeBeforeUpdate);
         AirplaneModelSeat testAirplaneModelSeat = airplaneModelSeats.get(airplaneModelSeats.size() - 1);
-        assertThat(testAirplaneModelSeat.getModelId()).isEqualTo(UPDATED_MODEL_ID);
         assertThat(testAirplaneModelSeat.getSeatNo()).isEqualTo(UPDATED_SEAT_NO);
 
         // Validate the AirplaneModelSeat in ElasticSearch
@@ -238,7 +229,6 @@ public class AirplaneModelSeatResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(airplaneModelSeat.getId().intValue())))
-            .andExpect(jsonPath("$.[*].modelId").value(hasItem(DEFAULT_MODEL_ID.intValue())))
             .andExpect(jsonPath("$.[*].seatNo").value(hasItem(DEFAULT_SEAT_NO.toString())));
     }
 }

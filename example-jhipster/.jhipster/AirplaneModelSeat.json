@@ -2,17 +2,13 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "modelId",
+            "relationshipType": "many-to-one",
+            "relationshipName": "model",
             "otherEntityName": "airplaneModel",
-            "otherEntityRelationshipName": "airplaneModelSeat"
+            "otherEntityField": "model"
         }
     ],
     "fields": [
-        {
-            "fieldName": "modelId",
-            "fieldType": "Long"
-        },
         {
             "fieldName": "seatNo",
             "fieldType": "String",
@@ -21,7 +17,7 @@
             ]
         }
     ],
-    "changelogDate": "20160907125333",
+    "changelogDate": "20160907173051",
     "entityTableName": "airplane_model_seat",
     "dto": "no",
     "pagination": "no",

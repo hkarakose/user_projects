@@ -3,28 +3,18 @@ entity Airport {
     name String required
     IataCode String required,
 }
-relationship ManyToOne { Airport{city} to City }
+relationship ManyToOne { Airport{city(name)} to City }
 
-entity Airplane {
-	id Long,
-	name String required
-    airplaneModelId Long
-    airlinesId Long required
-}
+entity Airplane { id Long, name String required }
+relationship ManyToOne { Airplane{airplaneModel(model)} to AirplaneModel }
+relationship ManyToOne { Airplane{airlines(name)} to Airlines }
 
-entity AirplaneModel {
-	id Long, model String required
-}
+entity AirplaneModel { id Long, model String required }
 
-entity AirplaneModelSeat {
-	id Long, modelId Long, seatNo String required
-}
+entity AirplaneModelSeat { id Long, seatNo String required }
+relationship ManyToOne { AirplaneModelSeat{model(model)} to AirplaneModel }
 
-entity Airlines {
-	id Long,
-    name String required,
-    abbreviation String
-}
+entity Airlines { id Long, name String required, abbreviation String }
 
 enum Status { NEW, ACTIVE, SUSPENDED, TERMINATED }
 entity Flight {
@@ -34,9 +24,9 @@ entity Flight {
     status Status
 }
 relationship ManyToOne {
-	Flight{departure} to Airport,
-    Flight{arrival} to Airport,
-    Flight{airplane} to Airplane
+	Flight{departure(name)} to Airport,
+    Flight{arrival(name)} to Airport,
+    Flight{airplane(name)} to Airplane
 }
 
 entity FlightSeat {
@@ -50,17 +40,9 @@ relationship ManyToOne {
 }
 
 entity City     { id Long, name String }
-relationship ManyToOne { City{country} to Country }
+relationship ManyToOne { City{country(name)} to Country }
 
 entity Country  { id Long, name String }
-
-relationship OneToMany {
-	Airplane{airlinesId} to Airlines,
-    Airplane{airplaneModelId} to AirplaneModel
-}
-relationship OneToMany {
-	AirplaneModelSeat{modelId} to AirplaneModel
-}
 
 paginate Flight 	with infinite-scroll
 paginate Airport 	with pagination

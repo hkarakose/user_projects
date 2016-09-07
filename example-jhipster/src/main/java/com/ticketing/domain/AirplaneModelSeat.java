@@ -1,6 +1,5 @@
 package com.ticketing.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -27,17 +24,12 @@ public class AirplaneModelSeat implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "model_id")
-    private Long modelId;
-
     @NotNull
     @Column(name = "seat_no", nullable = false)
     private String seatNo;
 
-    @OneToMany(mappedBy = "airplaneModelSeat")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AirplaneModel> modelIds = new HashSet<>();
+    @ManyToOne
+    private AirplaneModel model;
 
     public Long getId() {
         return id;
@@ -45,19 +37,6 @@ public class AirplaneModelSeat implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getModelId() {
-        return modelId;
-    }
-
-    public AirplaneModelSeat modelId(Long modelId) {
-        this.modelId = modelId;
-        return this;
-    }
-
-    public void setModelId(Long modelId) {
-        this.modelId = modelId;
     }
 
     public String getSeatNo() {
@@ -73,29 +52,17 @@ public class AirplaneModelSeat implements Serializable {
         this.seatNo = seatNo;
     }
 
-    public Set<AirplaneModel> getModelIds() {
-        return modelIds;
+    public AirplaneModel getModel() {
+        return model;
     }
 
-    public AirplaneModelSeat modelIds(Set<AirplaneModel> airplaneModels) {
-        this.modelIds = airplaneModels;
+    public AirplaneModelSeat model(AirplaneModel airplaneModel) {
+        this.model = airplaneModel;
         return this;
     }
 
-    public AirplaneModelSeat addAirplaneModel(AirplaneModel airplaneModel) {
-        modelIds.add(airplaneModel);
-        airplaneModel.setAirplaneModelSeat(this);
-        return this;
-    }
-
-    public AirplaneModelSeat removeAirplaneModel(AirplaneModel airplaneModel) {
-        modelIds.remove(airplaneModel);
-        airplaneModel.setAirplaneModelSeat(null);
-        return this;
-    }
-
-    public void setModelIds(Set<AirplaneModel> airplaneModels) {
-        this.modelIds = airplaneModels;
+    public void setModel(AirplaneModel airplaneModel) {
+        this.model = airplaneModel;
     }
 
     @Override
@@ -122,7 +89,6 @@ public class AirplaneModelSeat implements Serializable {
     public String toString() {
         return "AirplaneModelSeat{" +
             "id=" + id +
-            ", modelId='" + modelId + "'" +
             ", seatNo='" + seatNo + "'" +
             '}';
     }

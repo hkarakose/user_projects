@@ -25,29 +25,19 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_airplaneModelId">Airplane Model Id</label>
-            <input type="number" class="form-control" name="airplaneModelId" id="field_airplaneModelId"
-                    ng-model="vm.airplane.airplaneModelId"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_airlinesId">Airlines Id</label>
-            <input type="number" class="form-control" name="airlinesId" id="field_airlinesId"
-                    ng-model="vm.airplane.airlinesId"
-                    required />
-            <div ng-show="editForm.airlinesId.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.airlinesId.$error.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.airlinesId.$error.number">
-                    This field should be a number.
-                </p>
-            </div>
-        </div>
 
+        <div class="form-group">
+            <label for="field_airplaneModel">Airplane Model</label>
+            <select class="form-control" id="field_airplaneModel" name="airplaneModel" ng-model="vm.airplane.airplaneModel" ng-options="airplaneModel as airplaneModel.model for airplaneModel in vm.airplanemodels track by airplaneModel.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_airlines">Airlines</label>
+            <select class="form-control" id="field_airlines" name="airlines" ng-model="vm.airplane.airlines" ng-options="airlines as airlines.name for airlines in vm.airlines track by airlines.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

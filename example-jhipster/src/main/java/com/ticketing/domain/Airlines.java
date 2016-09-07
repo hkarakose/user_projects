@@ -31,9 +31,6 @@ public class Airlines implements Serializable {
     @Column(name = "abbreviation")
     private String abbreviation;
 
-    @ManyToOne
-    private Airplane airplane;
-
     public Long getId() {
         return id;
     }
@@ -66,19 +63,6 @@ public class Airlines implements Serializable {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
-    }
-
-    public Airplane getAirplane() {
-        return airplane;
-    }
-
-    public Airlines airplane(Airplane airplane) {
-        this.airplane = airplane;
-        return this;
-    }
-
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
     }
 
     @Override

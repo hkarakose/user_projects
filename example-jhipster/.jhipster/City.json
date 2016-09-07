@@ -5,7 +5,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "country",
             "otherEntityName": "country",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -14,7 +14,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907125337",
+    "changelogDate": "20160907172950",
     "entityTableName": "city",
     "dto": "no",
     "pagination": "pagination",

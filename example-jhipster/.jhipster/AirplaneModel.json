@@ -1,19 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipName": "airplane",
-            "otherEntityName": "airplane",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipName": "airplaneModelSeat",
-            "otherEntityName": "airplaneModelSeat",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "model",
@@ -23,7 +10,7 @@
             ]
         }
     ],
-    "changelogDate": "20160907125332",
+    "changelogDate": "20160907172728",
     "entityTableName": "airplane_model",
     "dto": "no",
     "pagination": "pagination",

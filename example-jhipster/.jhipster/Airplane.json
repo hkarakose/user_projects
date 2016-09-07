@@ -2,16 +2,16 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "airlinesId",
-            "otherEntityName": "airlines",
-            "otherEntityRelationshipName": "airplane"
+            "relationshipType": "many-to-one",
+            "relationshipName": "airplaneModel",
+            "otherEntityName": "airplaneModel",
+            "otherEntityField": "model"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "airplaneModelId",
-            "otherEntityName": "airplaneModel",
-            "otherEntityRelationshipName": "airplane"
+            "relationshipType": "many-to-one",
+            "relationshipName": "airlines",
+            "otherEntityName": "airlines",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -21,20 +21,9 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "airplaneModelId",
-            "fieldType": "Long"
-        },
-        {
-            "fieldName": "airlinesId",
-            "fieldType": "Long",
-            "fieldValidateRules": [
-                "required"
-            ]
         }
     ],
-    "changelogDate": "20160907125331",
+    "changelogDate": "20160907172704",
     "entityTableName": "airplane",
     "dto": "no",
     "pagination": "pagination",

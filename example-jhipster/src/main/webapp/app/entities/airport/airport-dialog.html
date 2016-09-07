@@ -40,7 +40,7 @@
 
         <div class="form-group">
             <label for="field_city">City</label>
-            <select class="form-control" id="field_city" name="city" ng-model="vm.airport.city" ng-options="city as city.id for city in vm.cities track by city.id">
+            <select class="form-control" id="field_city" name="city" ng-model="vm.airport.city" ng-options="city as city.name for city in vm.cities track by city.id">
                 <option value=""></option>
             </select>
         </div>

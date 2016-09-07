@@ -37,8 +37,8 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="airplaneModelId"><span>Airplane Model Id</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="airlinesId"><span>Airlines Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="airplaneModel.model"><span>Airplane Model</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="airlines.name"><span>Airlines</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,8 +46,12 @@
                 <tr ng-repeat="airplane in vm.airplanes track by airplane.id">
                     <td><a ui-sref="airplane-detail({id:airplane.id})">{{airplane.id}}</a></td>
                     <td>{{airplane.name}}</td>
-                    <td>{{airplane.airplaneModelId}}</td>
-                    <td>{{airplane.airlinesId}}</td>
+                    <td>
+                        <a ui-sref="airplane-model-detail({id:airplane.airplaneModel.id})">{{airplane.airplaneModel.model}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="airlines-detail({id:airplane.airlines.id})">{{airplane.airlines.name}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

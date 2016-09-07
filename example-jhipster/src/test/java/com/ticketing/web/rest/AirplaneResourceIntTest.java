@@ -40,12 +40,6 @@ public class AirplaneResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
 
-    private static final Long DEFAULT_AIRPLANE_MODEL_ID = 1L;
-    private static final Long UPDATED_AIRPLANE_MODEL_ID = 2L;
-
-    private static final Long DEFAULT_AIRLINES_ID = 1L;
-    private static final Long UPDATED_AIRLINES_ID = 2L;
-
     @Inject
     private AirplaneRepository airplaneRepository;
 
@@ -85,9 +79,7 @@ public class AirplaneResourceIntTest {
     public static Airplane createEntity(EntityManager em) {
         Airplane airplane = new Airplane();
         airplane = new Airplane()
-                .name(DEFAULT_NAME)
-                .airplaneModelId(DEFAULT_AIRPLANE_MODEL_ID)
-                .airlinesId(DEFAULT_AIRLINES_ID);
+                .name(DEFAULT_NAME);
         return airplane;
     }
 
@@ -114,8 +106,6 @@ public class AirplaneResourceIntTest {
         assertThat(airplanes).hasSize(databaseSizeBeforeCreate + 1);
         Airplane testAirplane = airplanes.get(airplanes.size() - 1);
         assertThat(testAirplane.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testAirplane.getAirplaneModelId()).isEqualTo(DEFAULT_AIRPLANE_MODEL_ID);
-        assertThat(testAirplane.getAirlinesId()).isEqualTo(DEFAULT_AIRLINES_ID);
 
         // Validate the Airplane in ElasticSearch
         Airplane airplaneEs = airplaneSearchRepository.findOne(testAirplane.getId());
@@ -142,24 +132,6 @@ public class AirplaneResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAirlinesIdIsRequired() throws Exception {
-        int databaseSizeBeforeTest = airplaneRepository.findAll().size();
-        // set the field null
-        airplane.setAirlinesId(null);
-
-        // Create the Airplane, which fails.
-
-        restAirplaneMockMvc.perform(post("/api/airplanes")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(airplane)))
-                .andExpect(status().isBadRequest());
-
-        List<Airplane> airplanes = airplaneRepository.findAll();
-        assertThat(airplanes).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllAirplanes() throws Exception {
         // Initialize the database
         airplaneRepository.saveAndFlush(airplane);
@@ -169,9 +141,7 @@ public class AirplaneResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(airplane.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].airplaneModelId").value(hasItem(DEFAULT_AIRPLANE_MODEL_ID.intValue())))
-                .andExpect(jsonPath("$.[*].airlinesId").value(hasItem(DEFAULT_AIRLINES_ID.intValue())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -185,9 +155,7 @@ public class AirplaneResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(airplane.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.airplaneModelId").value(DEFAULT_AIRPLANE_MODEL_ID.intValue()))
-            .andExpect(jsonPath("$.airlinesId").value(DEFAULT_AIRLINES_ID.intValue()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -209,9 +177,7 @@ public class AirplaneResourceIntTest {
         // Update the airplane
         Airplane updatedAirplane = airplaneRepository.findOne(airplane.getId());
         updatedAirplane
-                .name(UPDATED_NAME)
-                .airplaneModelId(UPDATED_AIRPLANE_MODEL_ID)
-                .airlinesId(UPDATED_AIRLINES_ID);
+                .name(UPDATED_NAME);
 
         restAirplaneMockMvc.perform(put("/api/airplanes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -223,8 +189,6 @@ public class AirplaneResourceIntTest {
         assertThat(airplanes).hasSize(databaseSizeBeforeUpdate);
         Airplane testAirplane = airplanes.get(airplanes.size() - 1);
         assertThat(testAirplane.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testAirplane.getAirplaneModelId()).isEqualTo(UPDATED_AIRPLANE_MODEL_ID);
-        assertThat(testAirplane.getAirlinesId()).isEqualTo(UPDATED_AIRLINES_ID);
 
         // Validate the Airplane in ElasticSearch
         Airplane airplaneEs = airplaneSearchRepository.findOne(testAirplane.getId());
@@ -265,8 +229,6 @@ public class AirplaneResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(airplane.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].airplaneModelId").value(hasItem(DEFAULT_AIRPLANE_MODEL_ID.intValue())))
-            .andExpect(jsonPath("$.[*].airlinesId").value(hasItem(DEFAULT_AIRLINES_ID.intValue())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 }

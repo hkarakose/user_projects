@@ -5,19 +5,19 @@
             "relationshipType": "many-to-one",
             "relationshipName": "departure",
             "otherEntityName": "airport",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "arrival",
             "otherEntityName": "airport",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "airplane",
             "otherEntityName": "airplane",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -41,7 +41,7 @@
             "fieldValues": "NEW,ACTIVE,SUSPENDED,TERMINATED"
         }
     ],
-    "changelogDate": "20160907125335",
+    "changelogDate": "20160907180311",
     "entityTableName": "flight",
     "dto": "no",
     "pagination": "infinite-scroll",
