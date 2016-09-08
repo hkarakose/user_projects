@@ -54,6 +54,34 @@
                 }]
             }
         })
+        .state('reservation-complete', {
+            parent: 'available-flights',
+            url: '/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'Reservation Completed'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/reservation/reservation-completed.html',
+                    controller: 'ReservationConfirmController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: ['$stateParams', 'Flight', function($stateParams, Flight) {
+                    return Flight.get({id : $stateParams.id}).$promise;
+                }],
+                previousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        name: $state.current.name || 'flight',
+                        params: $state.params,
+                        url: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+            }
+        })
     }
 
 })();

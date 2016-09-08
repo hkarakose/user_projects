@@ -1,5 +1,6 @@
 package com.ticketing.repository;
 
+import com.ticketing.domain.Flight;
 import com.ticketing.domain.FlightSeat;
 
 import org.springframework.data.jpa.repository.*;
@@ -14,5 +15,10 @@ public interface FlightSeatRepository extends JpaRepository<FlightSeat,Long> {
 
     @Query("select flightSeat from FlightSeat flightSeat where flightSeat.owner.login = ?#{principal.username}")
     List<FlightSeat> findByOwnerIsCurrentUser();
+
+    List<FlightSeat> findByFlight(Flight flight);
+    List<FlightSeat> findByFlightIdAndAvailability(Long flightId, boolean availability);
+
+
 
 }
