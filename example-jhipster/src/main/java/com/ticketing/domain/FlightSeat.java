@@ -37,6 +37,15 @@ public class FlightSeat implements Serializable {
     @ManyToOne
     private User owner;
 
+    public FlightSeat() {
+    }
+
+    public FlightSeat(String seatNo, boolean availability, Flight flight) {
+        this.seatNo = seatNo;
+        this.availability = availability;
+        this.flight = flight;
+    }
+
     public Long getId() {
         return id;
     }

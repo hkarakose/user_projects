@@ -1,9 +1,12 @@
 package com.ticketing.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.sun.javafx.scene.control.ReadOnlyUnbackedObservableList;
 import com.ticketing.domain.Flight;
 
+import com.ticketing.domain.FlightSeat;
 import com.ticketing.repository.FlightRepository;
+import com.ticketing.repository.FlightSeatRepository;
 import com.ticketing.repository.search.FlightSearchRepository;
 import com.ticketing.web.rest.util.HeaderUtil;
 import com.ticketing.web.rest.util.PaginationUtil;
@@ -21,6 +24,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,9 +40,12 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class FlightResource {
 
     private final Logger log = LoggerFactory.getLogger(FlightResource.class);
-        
+
     @Inject
     private FlightRepository flightRepository;
+
+    @Inject
+    private FlightSeatRepository flightSeatRepository;
 
     @Inject
     private FlightSearchRepository flightSearchRepository;
@@ -60,6 +67,20 @@ public class FlightResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("flight", "idexists", "A new flight cannot already have an ID")).body(null);
         }
         Flight result = flightRepository.save(flight);
+
+        char[] columns = {'A', 'B', 'C', 'D'};
+        List<FlightSeat> flightSeats = new ArrayList<>();
+        for (int j=0;j<columns.length;j++) {
+            for (int i = 1; i <= 17; i++) {
+                if (i == 17 && (j > 1)) {
+                    continue;
+                }
+                String seatNo = columns[j] + String.valueOf(i);
+                flightSeats.add(new FlightSeat(seatNo, true, result));
+            }
+        }
+        flightSeatRepository.save(flightSeats);
+
         flightSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/flights/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("flight", result.getId().toString()))
@@ -151,7 +172,7 @@ public class FlightResource {
      * SEARCH  /_search/flights?query=:query : search for the flight corresponding
      * to the query.
      *
-     * @param query the query of the flight search 
+     * @param query the query of the flight search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
