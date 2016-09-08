@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label for="field_flight">Flight</label>
-            <select class="form-control" id="field_flight" name="flight" ng-model="vm.flightSeat.flight" ng-options="flight as flight.id for flight in vm.flights track by flight.id">
+            <select class="form-control" id="field_flight" name="flight" ng-model="vm.flightSeat.flight" ng-options="flight as flight.flightCode for flight in vm.flights track by flight.id">
                 <option value=""></option>
             </select>
         </div>
