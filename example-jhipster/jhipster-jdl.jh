@@ -35,9 +35,16 @@ entity FlightSeat {
     availability Boolean
 }
 relationship ManyToOne {
-	FlightSeat{flight} to Flight,
+	FlightSeat{flight(flightCode)} to Flight,
     FlightSeat{owner} to User
 }
+
+//entity FlightReservation {
+//	id Long,
+//    status Status
+//}
+//Relationship ManyToOne {FlightReservation(flightCode) to Flight}
+//Relationship ManyToOne {FlightReservation(user) to User}
 
 entity City     { id Long, name String }
 relationship ManyToOne { City{country(name)} to Country }

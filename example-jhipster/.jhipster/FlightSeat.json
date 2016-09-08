@@ -5,7 +5,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "flight",
             "otherEntityName": "flight",
-            "otherEntityField": "id"
+            "otherEntityField": "flightCode"
         },
         {
             "relationshipType": "many-to-one",
@@ -27,7 +27,7 @@
             "fieldType": "Boolean"
         }
     ],
-    "changelogDate": "20160907125336",
+    "changelogDate": "20160908055839",
     "entityTableName": "flight_seat",
     "dto": "no",
     "pagination": "no",
