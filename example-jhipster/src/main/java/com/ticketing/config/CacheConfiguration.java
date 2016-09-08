@@ -20,22 +20,22 @@ import java.util.Set;
 import java.util.SortedSet;
 
 @SuppressWarnings("unused")
-@Configuration
-@EnableCaching
-@AutoConfigureAfter(value = { MetricsConfiguration.class, DatabaseConfiguration.class })
+//@Configuration
+//@EnableCaching
+//@AutoConfigureAfter(value = { MetricsConfiguration.class, DatabaseConfiguration.class })
 public class CacheConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
 
-    @PersistenceContext
+//    @PersistenceContext
     private EntityManager entityManager;
 
-    @Inject
+//    @Inject
     private MetricRegistry metricRegistry;
 
     private net.sf.ehcache.CacheManager cacheManager;
 
-    @PreDestroy
+//    @PreDestroy
     public void destroy() {
         log.info("Remove Cache Manager metrics");
         SortedSet<String> names = metricRegistry.getNames();
@@ -44,7 +44,7 @@ public class CacheConfiguration {
         cacheManager.shutdown();
     }
 
-    @Bean
+//    @Bean
     public CacheManager cacheManager(JHipsterProperties jHipsterProperties) {
         log.debug("Starting Ehcache");
         cacheManager = net.sf.ehcache.CacheManager.create();
