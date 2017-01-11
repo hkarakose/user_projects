@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Airplane</span> {{vm.airplane.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.airplane.name}}</span>
+        </dd>
+        <dt><span>Airplane Model</span></dt>
+        <dd>
+            <a ui-sref="airplane-model-detail({id:vm.airplane.airplaneModel.id})">{{vm.airplane.airplaneModel.model}}</a>
+        </dd>
+        <dt><span>Airlines</span></dt>
+        <dd>
+            <a ui-sref="airlines-detail({id:vm.airplane.airlines.id})">{{vm.airplane.airlines.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="airplane-detail.edit({id:vm.airplane.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

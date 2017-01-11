@@ -1,0 +1,65 @@
+entity Airport {
+	id Long,
+    name String required
+    IataCode String required,
+}
+relationship ManyToOne { Airport{city(name)} to City }
+
+entity Airplane { id Long, name String required }
+relationship ManyToOne { Airplane{airplaneModel(model)} to AirplaneModel }
+relationship ManyToOne { Airplane{airlines(name)} to Airlines }
+
+entity AirplaneModel { id Long, model String required }
+
+entity AirplaneModelSeat { id Long, seatNo String required }
+relationship ManyToOne { AirplaneModelSeat{model(model)} to AirplaneModel }
+
+entity Airlines { id Long, name String required, abbreviation String }
+
+enum Status { NEW, ACTIVE, SUSPENDED, TERMINATED }
+entity Flight {
+	id Long,
+	flightCode String required
+    date ZonedDateTime required
+    status Status
+}
+relationship ManyToOne {
+	Flight{departure(name)} to Airport,
+    Flight{arrival(name)} to Airport,
+    Flight{airplane(name)} to Airplane
+}
+
+entity FlightSeat {
+	id Long,
+    seatNo String required,
+    availability Boolean
+}
+relationship ManyToOne {
+	FlightSeat{flight(flightCode)} to Flight,
+    FlightSeat{owner} to User
+}
+
+//entity FlightReservation {
+//	id Long,
+//    status Status
+//}
+//Relationship ManyToOne {FlightReservation(flightCode) to Flight}
+//Relationship ManyToOne {FlightReservation(user) to User}
+
+entity City     { id Long, name String }
+relationship ManyToOne { City{country(name)} to Country }
+
+entity Country  { id Long, name String }
+
+paginate Flight 	with infinite-scroll
+paginate Airport 	with pagination
+paginate Airplane 	with pagination
+paginate City 		with pagination
+paginate Country 	with pagination
+paginate Airlines 	with pagination
+paginate AirplaneModel with pagination
+
+//dto Employee with mapstruct
+
+//service Employee with serviceClass
+

@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "flight",
+            "otherEntityName": "flight",
+            "otherEntityField": "flightCode"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "owner",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "seatNo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "availability",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20160908055839",
+    "entityTableName": "flight_seat",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

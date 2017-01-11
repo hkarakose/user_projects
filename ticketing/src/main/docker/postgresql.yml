@@ -1,0 +1,12 @@
+version: '2'
+services:
+    ticketing-postgresql:
+        container_name: ticketing-postgresql
+        image: postgres:9.5.3
+        # volumes:
+        #     - ~/volumes/jhipster/ticketing/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=ticketing
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

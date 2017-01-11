@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "departure",
+            "otherEntityName": "airport",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "arrival",
+            "otherEntityName": "airport",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "airplane",
+            "otherEntityName": "airplane",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "flightCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "NEW,ACTIVE,SUSPENDED,TERMINATED"
+        }
+    ],
+    "changelogDate": "20160907180311",
+    "entityTableName": "flight",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no"
+}
